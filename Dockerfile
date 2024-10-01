@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libxtst6 \
     libxshmfence1 \
+    libdrm2 \            # Added for libdrm.so.2
+    libgbm1 \           # Added for graphics buffer management
     fonts-noto-color-emoji \
     --no-install-recommends \
     && apt-get clean \
