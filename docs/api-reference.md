@@ -72,7 +72,7 @@ The `Config` class defaults can be overridden with your own settings.
 ```javascript
 public static config: Config = {
     cache: null,
-    timeout: 10000,
+    timeout: 120000,
     port: '3000',
     host: '0.0.0.0',
     width: 1000,
