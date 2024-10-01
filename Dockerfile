@@ -26,7 +26,11 @@ RUN apt-get update && apt-get install -y \
     libdrm2 \
     libgbm1 \
     libxkbcommon0 \          
-    fonts-noto-color-emoji \
+    libxdamage1 \            
+    libxshmfence1 \          
+    libgtk-3-0 \            
+    libxkbcommon-x11-0 \     
+    fonts-noto-color-emoji \ 
     --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -50,4 +54,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the Rendertron service
-CMD ["npm", "start"]
+CMD ["npm",
