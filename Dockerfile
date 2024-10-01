@@ -23,10 +23,13 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libxtst6 \
     libxshmfence1 \
-    libdrm2 \            
-    libgbm1 \           
+    libdrm2 \
+    libgbm1 \
+    libxkbcommon0 \          
     fonts-noto-color-emoji \
-    --no-install-recommends && apt-get clean && rm -rf /var/lib/apt/lists/*
+    --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /usr/src/app
