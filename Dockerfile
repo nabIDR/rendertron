@@ -54,4 +54,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the Rendertron service
-CMD ["npm",
+CMD ["npm", "start"]
