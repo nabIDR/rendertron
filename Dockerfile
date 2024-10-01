@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     libasound2 \
     libatk1.0-0 \
+    libatk-bridge2.0-0 \ # Added for libatk-bridge-2.0.so.0
     libcups2 \
     libdbus-1-3 \
     libgdk-pixbuf2.0-0 \
