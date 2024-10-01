@@ -174,6 +174,7 @@ export function makeMiddleware(options: Options): express.Handler {
       next();
       return;
     }
+    res.header("Access-Control-Allow-Origin", "*");
     const forwardedHost = forwardedHostHeader && req.get(forwardedHostHeader);
     const host =
       forwardedHost && allowedForwardedHosts.includes(forwardedHost)
