@@ -156,11 +156,13 @@ export function makeMiddleware(options: Options): express.Handler {
     options.excludeUrlPattern ||
     new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i');
   const injectShadyDom = !!options.injectShadyDom;
+  // The Rendertron service itself has a hard limit of 10 seconds to render, so
+  // let's give a little more time than that by default.
   const timeout = options.timeout || 120000; // Milliseconds.
-  
-  // Define allowed hosts for CORS
-  const allowedHosts = ['http://www.mapji.com', 'http://127.0.0.1:5173'];
   const allowedForwardedHosts = options.allowedForwardedHosts || [];
+  const forwardedHostHeader = allowedForwardedHosts.length
+    ? options.forwardedHostHeader || 'X-Forwarded-Host'
+    : null;
 
   return function rendertronMiddleware(req, res, next) {
     const ua = req.headers['user-agent'];
@@ -172,16 +174,8 @@ export function makeMiddleware(options: Options): express.Handler {
       next();
       return;
     }
-
-    // Set CORS headers
-    const origin = req.headers.origin;
-    if (allowedHosts.includes(origin)) {
-      res.header("Access-Control-Allow-Origin", origin);
-      res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-    }
-
-    const forwardedHost = options.forwardedHostHeader && req.get(options.forwardedHostHeader);
+    res.header("Access-Control-Allow-Origin", "*");
+    const forwardedHost = forwardedHostHeader && req.get(forwardedHostHeader);
     const host =
       forwardedHost && allowedForwardedHosts.includes(forwardedHost)
         ? forwardedHost
@@ -201,4 +195,3 @@ export function makeMiddleware(options: Options): express.Handler {
     }).pipe(res);
   };
 }
-
