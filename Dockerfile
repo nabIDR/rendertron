@@ -1,8 +1,11 @@
 # Use the official Node.js image
 FROM node:18-slim
 
-# Install git
-RUN apt-get update && apt-get install -y git && apt-get clean
+# Install git and build tools
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    && apt-get clean
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -11,7 +14,10 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/GoogleChrome/rendertron.git .
 
 # Install dependencies
-RUN npm install --production
+RUN npm install
+
+# Install TypeScript globally (if not available in local dependencies)
+RUN npm install -g typescript
 
 # Build the application
 RUN npm run build
