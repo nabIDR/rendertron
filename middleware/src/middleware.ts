@@ -143,6 +143,7 @@ export interface Options {
  * Rendertron bot rendering service.
  */
 export function makeMiddleware(options: Options): express.Handler {
+  
   if (!options || !options.proxyUrl) {
     throw new Error('Must set options.proxyUrl.');
   }
@@ -165,7 +166,13 @@ export function makeMiddleware(options: Options): express.Handler {
     : null;
 
   return function rendertronMiddleware(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
     const ua = req.headers['user-agent'];
+    if (req.hostname === 'localhost' || req.hostname === '127.0.0.1') {
+      res.header("Access-Control-Allow-Origin", "*");
+      next();
+      return;
+    }
     if (
       ua === undefined ||
       !userAgentPattern.test(ua) ||
