@@ -166,13 +166,7 @@ export function makeMiddleware(options: Options): express.Handler {
     : null;
 
   return function rendertronMiddleware(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
     const ua = req.headers['user-agent'];
-    if (req.hostname === 'localhost' || req.hostname === '127.0.0.1' || req.hostname === "http://127.0.0.1:5173/") {
-      res.header("Access-Control-Allow-Origin", "*");
-      next();
-      return;
-    }
     if (
       ua === undefined ||
       !userAgentPattern.test(ua) ||
