@@ -18,6 +18,7 @@ type ViewportDimensions = {
 const MOBILE_USERAGENT =
   'Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Mobile Safari/537.36';
 
+const USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
 /**
  * Wraps Puppeteer's interface to Headless Chrome to expose high level rendering
  * APIs that are able to handle web components and PWAs.
@@ -103,6 +104,8 @@ export class Renderer {
 
     if (isMobile) {
       page.setUserAgent(MOBILE_USERAGENT);
+    } else {
+      page.setUserAgent(USERAGENT);
     }
 
     if (timezoneId) {
