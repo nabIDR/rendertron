@@ -24,6 +24,7 @@ import request from 'request';
 export const botUserAgents = [
   'Baiduspider',
   'bingbot',
+  'Bingbot',
   'Embedly',
   'facebookexternalhit',
   'LinkedInBot',
@@ -38,6 +39,10 @@ export const botUserAgents = [
   'vkShare',
   'W3C_Validator',
   'WhatsApp',
+  'Googlebot',
+  "google-inspectiontool",
+
+
 ];
 
 /**
@@ -166,6 +171,8 @@ export function makeMiddleware(options: Options): express.Handler {
     : null;
 
   return function rendertronMiddleware(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    
     const ua = req.headers['user-agent'];
     if (
       ua === undefined ||
@@ -175,7 +182,7 @@ export function makeMiddleware(options: Options): express.Handler {
       next();
       return;
     }
-    res.header("Access-Control-Allow-Origin", "*");
+    
     const forwardedHost = forwardedHostHeader && req.get(forwardedHostHeader);
     const host =
       forwardedHost && allowedForwardedHosts.includes(forwardedHost)
